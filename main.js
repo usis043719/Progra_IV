@@ -1,69 +1,74 @@
-var miDBProductos = openDatabase('dbProductos','1.0','Aplicacion de Productos',5*1024*1024);
+var miDBAlumnos= openDatabase('dbAlumnos','1.0','Aplicacion de Alumnos',5*1024*1024);
 window.id = 0;
-if(!miDBProductos){
+if(!miDBAlumnos){
     alert("Elnavegador no soporta Web SQL");
 }
+
 var appVue = new Vue({
-    el:'#appProductos',
-    data:{
-        producto:{
-            idProducto  : 0,
+
+    el: '#appAlumnos',
+    data: {
+        alumno:{
+            idAlumno  : 0,
             codigo      : '',
-            descripcion : '',
-            precio      : '',
-            img         : '/images/No-image-available.png',
-            img2        : '/images/No-image-available.png'
+            nombre       :'',
+            direccion         : '', 
+            municipio         : '', 
+            departamento      : '',    
+            telefono          : '',
+            fechanacimiento   : '',      
+            sexo              : '' 
         },
-        productos:[]
+        alumnos:[]
     },
     methods:{
-        guardarProducto(){
+        guardarAlumno(){
             /**
              * BD Web SQL
              */
-            miDBProductos.transaction(tran=>{
-                tran.executeSql('INSERT INTO productos(idProducto,codigo,descripcion,precio,img) VALUES(?,?,?,?,?) ',
-                    [++id,this.producto.codigo,this.producto.descripcion,this.producto.precio, this.producto.img]);
-                this.obtenerProductos();
+            miDBAlumnos.transaction(tran=>{
+                tran.executeSql('INSERT INTO alumnos(idAlumno,codigo,nombre,direccion,municipio,departamento,telefono,fechanacimiento,sexo) VALUES(?,?,?,?,?,?,?,?,?) ',
+                    [++id,this.alumno.codigo,this.alumno.nombre,this.alumno.direccion, this.alumno.municipio,this.alumno.departamento,this.alumno.telefono, this.alumno.fechanacimiento,this.alumno.sexo]);
+                this.obtenerAlumnos();
                 this.limpiar();
             }, err=>{
                 console.log( err );
             });
         },
-        obtenerImg(e){
-            //IMG 1
-            let rutaTemp = URL.createObjectURL(e.target.files[0]);
-            this.producto.img = rutaTemp;
-            //IMG2
-            /*rutaTemp = URL.createObjectURL(e.target.files[1]);
-            this.producto.img2 = rutaTemp;*/
-        },
-        obtenerProductos(){
-            miDBProductos.transaction(tran=>{
-                tran.executeSql('SELECT * FROM productos',[],(index,data)=>{
-                    this.productos = data.rows;
+
+        obtenerAlumnos(){
+            miDBAlumnos.transaction(tran=>{
+                tran.executeSql('SELECT * FROM alumnos',[],(index,data)=>{
+                    this.alumnos = data.rows;
                     id=data.rows.length;
                 });
             }, err=>{
                 console.log( err );
             });
         },
-        mostrarProducto(pro){
-            this.producto = pro;
+        
+        mostrarAlumno(aln){
+            this.alumno = aln;
         },
+
         limpiar(){
-            this.producto.codigo='';
-            this.producto.descripcion='';
-            this.producto.precio='';
-            this.producto.img='';
+            this.alumno.codigo='';
+            this.alumno.nombre='';
+            this.alumno.direccion='';
+            this.alumno.municipio='';
+            this.alumno.departamento='';
+            this.alumno.telefono='';
+            this.alumno.fechanacimiento='';
+            this.alumno.sexo='';
+
         }
     },
     created(){
-        miDBProductos.transaction(tran=>{
-            tran.executeSql('CREATE TABLE IF NOT EXISTS productos(idProducto int PRIMARY KEY NOT NULL, codigo varchar(10), descripcion varchar(65), precio decimal(4,2),img varchar(100))');
+        miDBAlumnos.transaction(tran=>{
+            tran.executeSql('CREATE TABLE IF NOT EXISTS alumnos(idAlumno int PRIMARY KEY NOT NULL, codigo varchar(10), nombre varchar(60),direccion varchar(60),municipio varchar(50),departamento varchar(50),telefono varchar(10),fechanacimiento date(), sexo varchar(20))');
         }, err=>{
             console.log( err );
         });
-        this.obtenerProductos();
+        this.obtenerAlumnos();
     }
 });
