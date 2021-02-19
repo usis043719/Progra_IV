@@ -1,79 +1,46 @@
-var miDBAlumnos = openDatabase('dbAlumnos','1.0','Aplicacion de Alumnos',5*1024*1024);
-window.id = 0;
-if(!miDBAlumnos){
-    alert("Elnavegador no soporta Web SQL");
-}
+var generarIdUnicoDesdeFecha=()=>{
+    let fecha = new Date();//03/02/2021
+    return Math.floor(fecha.getTime()/1000).toString(16);
+}, db;
 var appVue = new Vue({
-    el:'#appAlumnos',
+    el:'#appSistema',
     data:{
-        alumno:{
-            idAlumno    : 0,
-            codigo      : '',
-            nombre      : '',
-            direccion   : '',
-            municipio   : '',
-            departamento: '',
-            telefono    : '',
-            f_nacimiento: '',
-            sexo        : '',
-            img         : '/images/No-image-available.png',
-            img2        : '/images/No-image-available.png',
-        },
-        alumnos:[]
+        forms:{
+            'alumno':{mostrar:false},
+            
+        }
     },
     methods:{
-        guardarAlumno(){
-            /**
-             * BD Web SQL
-             */
-            miDBAlumnos.transaction(tran=>{
-                tran.executeSql('INSERT INTO alumnos(idAlumno,codigo,nombre,direccion,municipio,departamento,telefono,f_nacimiento,sexo,img) VALUES(?,?,?,?,?,?,?,?,?,?) ',
-                    [++id,this.alumno.codigo,this.alumno.nombre,this.alumno.direccion,this.alumno.municipio,this.alumno.departamento,this.alumno.telefono,this.alumno.f_nacimiento,this.alumno.sexo,this.alumno.img]);
-                this.obtenerAlumnos();
-                this.limpiar();
-            }, err=>{
-                console.log( err );
-            });
-        },
-        obtenerImg(e){
-            //IMG 1
-            let rutaTemp = URL.createObjectURL(e.target.files[0]);
-            this.alumno.img = rutaTemp;
-            //IMG2
-            /*rutaTemp = URL.createObjectURL(e.target.files[1]);
-            this.producto.img2 = rutaTemp;*/
-        },
-        obtenerAlumnos(){
-            miDBAlumnos.transaction(tran=>{
-                tran.executeSql('SELECT * FROM alumnos',[],(index,data)=>{
-                    this.alumnos = data.rows;
-                    id=data.rows.length;
-                });
-            }, err=>{
-                console.log( err );
-            });
-        },
-        mostrarAlumno(alu){
-            this.alumno = alu;
-        },
-        limpiar(){
-            this.alumno.codigo='';
-            this.alumno.nombre='';  
-            this.alumno.direccion='';
-            this.alumno.municipio='';
-            this.alumno.departamento='';
-            this.alumno.telefono='';
-            this.alumno.f_nacimiento='';
-            this.alumno.sexo='';
-            this.alumno.img='';
+        abrirBd(){
+            let indexDb = indexedDB.open('db_registro_de_alumnos',1);
+            indexDb.onupgradeneeded=event=>{
+                let req=event.target.result,
+                    tblalumnos = req.createObjectStore('tblalumnos',{keyPath:'idAlumno'});
+                   
+
+                    tblalumnos.createIndex('idAlumno','idAlumno',{unique:true});
+                    tblalumnos.createIndex('codigo','codigo',{unique:false});
+
+
+            };
+            indexDb.onsuccess = evt=>{
+                db=evt.target.result;
+            };
+            indexDb.onerror=e=>{
+                console.log("Error al conectar a la BD", e);
+            };
         }
     },
     created(){
-        miDBAlumnos.transaction(tran=>{
-            tran.executeSql('CREATE TABLE IF NOT EXISTS alumnos(idAlumno int PRIMARY KEY NOT NULL, codigo varchar(10), nombre varchar(65), direccion varchar(60), municipio varchar(65), departamento varchar(65),telefono varchar(8),f_nacimiento varchar(65),sexo varchar(1), img varchar(100))');
-        }, err=>{
-            console.log( err );
-        });
-        this.obtenerAlumnos();
+        this.abrirBd();
     }
+});
+
+document.addEventListener("DOMContentLoaded",event=>{
+    let el = document.querySelectorAll(".mostrar").forEach( (element, index)=>{
+        element.addEventListener("click",evt=>{
+            appVue.forms[evt.target.dataset.form].mostrar = true;
+            appVue.$refs[evt.target.dataset.form].obtenerDatos();
+        });
+    } );
 });
