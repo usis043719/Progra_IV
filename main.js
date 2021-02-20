@@ -7,6 +7,8 @@ var appVue = new Vue({
     data:{
         forms:{
             'alumno':{mostrar:false},
+            'matricula':{mostrar:false},
+
             
         }
     },
@@ -16,10 +18,17 @@ var appVue = new Vue({
             indexDb.onupgradeneeded=event=>{
                 let req=event.target.result,
                     tblalumnos = req.createObjectStore('tblalumnos',{keyPath:'idAlumno'});
-                   
+                    tblmatriculas = req.createObjectStore('tblmatriculas',{keyPath:'codigo_matricula'});
 
-                    tblalumnos.createIndex('idAlumno','idAlumno',{unique:true});
-                    tblalumnos.createIndex('codigo','codigo',{unique:false});
+
+
+                tblalumnos.createIndex('idAlumno','idAlumno',{unique:true});
+                tblalumnos.createIndex('codigo','codigo',{unique:false});
+
+                tblmatriculas.createIndex('codigo_matricula','codigo_matricula',{unique:true});
+                tblmatriculas.createIndex('periodo','periodo',{unique:false});
+
+
 
 
             };
