@@ -11,11 +11,11 @@ Vue.component('componentalumnos',{
             codigo         : '',
             nombre         : '',
             direccion      : '',
-            municipio      : '',
+           
             departamento   : '',
             telefono       : '',
             fecha_de_nacimiento: '',
-            sexo           : '',
+            
             img         : '/images/No-image-available.png',
             img2        : '/images/No-image-available.png'
         },
@@ -100,11 +100,11 @@ Vue.component('componentalumnos',{
             this.alumno.codigo='';
             this.alumno.nombre='';
             this.alumno.direccion='';
-            this.alumno.municipio='';
+            
             this.alumno.departamento='';
             this.alumno.telefono='';
             this.alumno.fecha_de_nacimiento='';
-            this.alumno.sexo='';
+            
             this.alumno.img='';
             this.obtenerDatos();
         },
@@ -142,31 +142,26 @@ Vue.component('componentalumnos',{
             <div class="row p-2"><!-- FUNCIONAL -->
                 <div class="col-sm">CODIGO:</div>
                 <div class="col-sm">
-                    <input v-model="alumno.codigo" required pattern="^[0-9]{3}$" type="text" class="form-control form-control-sm" placeholder="Ingrese codigo" >
+                    <input v-model="alumno.codigo" required pattern="^[0-9]{4}$" type="text" class="form-control form-control-sm" placeholder="XXXX"" >
                 </div>
             </div>
             <div class="row p-2"><!-- FUNCIONAL -->
                 <div class="col-sm">NOMBRE: </div>
                 <div class="col-sm">
-                    <input v-model="alumno.nombre" required pattern="[A-ZÑña-z0-9 ]{5,65}" type="text" class="form-control form-control-sm" placeholder="Escriba su nombre">
+                    <input v-model="alumno.nombre" required pattern="[A-ZÑña-z0-9 ]{5,65}" type="text" class="form-control form-control-sm" placeholder="XXXX XXXX XXXX XXXX">
                 </div>
             </div>
             <div class="row p-2"><!-- FUNCIONAL -->
                 <div class="col-sm">DIRECCION: </div>
                 <div class="col-sm">
-                    <input v-model="alumno.direccion" required pattern="[A-ZÑña-z0-9 ]{5,65}" type="text" class="form-control form-control-sm" placeholder="Escriba su direccion">
+                    <input v-model="alumno.direccion" required pattern="[A-ZÑña-z0-9 ]{5,65}" type="text" class="form-control form-control-sm" placeholder="XXXXXX">
                 </div>
             </div>
-            <div class="row p-2"><!-- FUNCIONAL -->
-                <div class="col-sm">MUNICIPIO: </div>
-                <div class="col-sm">
-                    <input v-model="alumno.municipio" required pattern="[A-ZÑña-z0-9 ]{5,15}" type="text" class="form-control form-control-sm" placeholder="Escriba su municipio ">
-                </div>
-            </div>
+            
             <div class="row p-2"><!-- FUNCIONAL -->
                 <div class="col-sm">DEPARTAMENTO: </div>
                 <div class="col-sm">
-                    <input v-model="alumno.departamento" required pattern="[A-ZÑña-z0-9 ]{5,15}" type="text" class="form-control form-control-sm" placeholder="Escriba su departamento">
+                    <input v-model="alumno.departamento" required pattern="[A-ZÑña-z0-9 ]{5,15}" type="text" class="form-control form-control-sm" placeholder="XXXXX">
                 </div>
             </div>
             <div class="row p-2"><!-- FUNCIONAL -->
@@ -181,12 +176,7 @@ Vue.component('componentalumnos',{
                     <input v-model="alumno.fecha_de_nacimiento" required pattern="{0000-00-00}" type="date" class="form-control form-control-sm" placeholder="Ejem: 0000-00-00">
                 </div>
             </div>
-            <div class="row p-2"><!-- FUNCIONAL -->
-                <div class="col-sm">SEXO: </div>
-                <div class="col-sm">
-                    <input v-model="alumno.sexo" required pattern= "[F/M]{1}" type="text" class="form-control form-control-sm" placeholder="Ejem: F/M">
-                </div>
-            </div>
+            
             <div class="row p-2"><!-- FUNCIONAL -->
                 <div class="col-sm">IMAGEN:</div>
                 <div class="col-sm">
@@ -230,11 +220,11 @@ Vue.component('componentalumnos',{
                                 <th>CODIGO</th>
                                 <th>NOMBRE</th>
                                 <th>DIRECCION</th>
-                                <th>MUNICIPIO</th>
+                                
                                 <th>DEPARTAMENTO</th>
                                 <th>TELEFONO</th>
                                 <th>FECHA_DE_NACIMIENTO</th>
-                                <th>SEXO</th>
+                                
                                 <th>IMG</th>
                                 <th></th>
                             </tr>
@@ -244,11 +234,11 @@ Vue.component('componentalumnos',{
                                 <td>{{ pro.codigo }}</td>
                                 <td>{{ pro.nombre }}</td>
                                 <td>{{ pro.direccion }}</td>
-                                <td>{{ pro.municipio }}</td>
+                                
                                 <td>{{ pro.departamento }}</td>
                                 <td>{{ pro.telefono }}</td>
                                 <td>{{ pro.fecha_de_nacimiento }}</td>
-                                <td>{{ pro.sexo }}</td>
+                                
                                 <td>{{ pro.img }}</td>
                                 <td>
                                     <a @click.stop="eliminarAlumno(pro)" class="btn btn-danger">DEL</a>

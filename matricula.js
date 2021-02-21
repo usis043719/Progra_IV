@@ -1,4 +1,5 @@
-Vue.component('componentmatricula',{
+
+Vue.component('componentmatriculas',{
     data:()=>{
         return {
             accion : 'nuevo',
@@ -7,25 +8,26 @@ Vue.component('componentmatricula',{
             error  : false,
             buscar : "",
             matricula:{
-                codigo_matricula : 0,
-                periodo : '',
+                idMatricula : 0,
+                codigo : '',
                 alumno : '',
+                periodo : '',
                 fecha_de_matricula : '',
             },
             matriculas:[]
         }
     },
     methods:{
-        buscandoMateria(){
-            this.materias = this.materias.filter((element,index,clientes) => element.nombre.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 || element.codigo.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 );
+        buscandoMatricula(){
+            this.matriculas = this.matriculas.filter((element,index,matriculas) => element.alumno.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 || element.codigo.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 );
             if( this.buscar.length<=0){
                 this.obtenerDatos();
             }
         },
-        buscandoAlumno(store){
+        buscandoCodigoMatricula(store){
             let buscarCodigo = new Promise( (resolver,rechazar)=>{
                 let index = store.index("codigo"),
-                    data = index.get(this.alumno.codigo);
+                    data = index.get(this.matricula.codigo);
                 data.onsuccess=evt=>{
                     resolver(data);
                 };
@@ -44,9 +46,9 @@ Vue.component('componentmatricula',{
             let store = this.abrirStore("tblmatriculas",'readwrite'),
                 duplicado = false;
             if( this.accion=='nuevo' ){
-                this.matriculas.codigo_matricula = generarIdUnicoDesdeFecha();
+                this.matricula.idMatricula = generarIdUnicoDesdeFecha();
                 
-                let data = await this.codigo_matricula(store);
+                let data = await this.buscandoCodigoMatricula(store);
                 duplicado = data.result!=undefined;
             }
             if( duplicado==false){
@@ -86,20 +88,21 @@ Vue.component('componentmatricula',{
             };
         },
         mostrarMatricula(pro){
-            this.matriculas = pro;
+            this.matricula = pro;
             this.accion='modificar';
         },
         limpiar(){
             this.accion='nuevo';
-            this.matricula.periodo='';
+            this.matricula.codigo='';
             this.matricula.alumno='';
+            this.matricula.periodo='';
             this.matricula.fecha_de_matricula='';
             this.obtenerDatos();
         },
         eliminarMatricula(pro){
-            if( confirm(`Esta seguro que desea eliminar el registro de matricula:  ${pro.descripcion}`) ){
+            if( confirm(`Esta seguro que desea eliminar el registro de matricula:  ${pro.alumno}`) ){
                 let store = this.abrirStore("tblmatriculas",'readwrite'),
-                    req = store.delete(pro.codigo_matricula);
+                    req = store.delete(pro.idMatricula);
                 req.onsuccess=resp=>{
                     this.mostrarMsg('Registro eliminado con exito',true);
                     this.obtenerDatos();
@@ -137,7 +140,14 @@ Vue.component('componentmatricula',{
                     <div class="row p-2">
                         <div class="col-sm">CODIGO MATRICULA:</div>
                         <div class="col-sm">
-                            <input v-model="matricula.codigo_matricula" required type="text" class="form-control form-control-sm" >
+                            <input v-model="matricula.codigo" required pattern="^[0-9]{4}$" required type="text" class="form-control form-control-sm" placeholder="XXXX">
+                        </div>
+                    </div>
+                    
+                    <div class="row p-2">
+                        <div class="col-sm">ALUMNO: </div>
+                        <div class="col-sm">
+                            <input v-model="matricula.alumno" required pattern="[A-ZÑña-z0-9, ]{5,65}" type="text" class="form-control form-control-sm" placeholder="XXXX XXX XXXX XXXX">
                         </div>
                     </div>
                     <div class="row p-2">
@@ -147,15 +157,9 @@ Vue.component('componentmatricula',{
                         </div>
                     </div>
                     <div class="row p-2">
-                        <div class="col-sm">ALUMNO: </div>
-                        <div class="col-sm">
-                            <input v-model="matricula.alumno" required pattern="[A-ZÑña-z0-9, ]{5,65}" type="text" class="form-control form-control-sm">
-                        </div>
-                    </div>
-                    <div class="row p-2">
                         <div class="col-sm">FECHA DE MATRICULA: </div>
                         <div class="col-sm">
-                            <input v-model="matricula.fecha_de-matricula" required pattern="{0000-00-00}" type="date" class="form-control form-control-sm" placeholder="Ejem: 0000-00-00">
+                            <input v-model="matricula.fecha_de_matricula" required pattern="{0000-00-00}" type="date" class="form-control form-control-sm" placeholder="Ejem: 0000-00-00">
                         </div>
                     </div>
                     <div class="row p-2">
@@ -183,22 +187,24 @@ Vue.component('componentmatricula',{
                                 <thead>
                                     <tr>
                                         <td colspan="5">
-                                            <input v-model="buscar" v-on:keyup="buscandoMateria" type="text" class="form-control form-contro-sm" placeholder="Buscar clientes">
+                                            <input v-model="buscar" v-on:keyup="buscandoMatricula" type="text" class="form-control form-contro-sm" placeholder="Buscar matricula">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>CODIGO MATRICULA</th>
-                                        <th>PERIODO</th>
+                                        <th>CODIGO</th>
+                                        
                                         <th>ALUMNO</th>
-                                        <th>FECHA DE MATRICULA</th>
+                                        <th>PERIODO</th>
+                                        <th>FECHA_DE_MATRICULA</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="pro in matriculas" v-on:click="mostrarMatricula(pro)">
-                                        <td>{{ pro.codigo_matricula }}</td>
-                                        <td>{{ pro.periodo }}</td>
+                                        <td>{{ pro.codigo}}</td>
+                                        
                                         <td>{{ pro.alumno }}</td>
+                                        <td>{{ pro.periodo }}</td>
                                         <td>{{ pro.fecha_de_matricula }}</td>
                                         <td>
                                             <a @click.stop="eliminarMatricula(pro)" class="btn btn-danger">DEL</a>
