@@ -1,5 +1,5 @@
-
-Vue.component('componentmatriculas',{
+Vue.component('v-select-alumnos', VueSelect.VueSelect);
+Vue.component('component-matricula',{
     data:()=>{
         return {
             accion : 'nuevo',
@@ -8,18 +8,22 @@ Vue.component('componentmatriculas',{
             error  : false,
             buscar : "",
             matricula:{
+                alumno : {
+                    id : 0,
+                    label : ''
+                },
                 idMatricula : 0,
                 codigo : '',
-                alumno : '',
                 periodo : '',
-                fecha_de_matricula : '',
+                fecha_de_matricula : ''
             },
-            matriculas:[]
+            matricula:[],
+            alumnos:[]
         }
     },
     methods:{
         buscandoMatricula(){
-            this.matriculas = this.matriculas.filter((element,index,matriculas) => element.alumno.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 || element.codigo.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 );
+            this.matricula = this.matricula.filter((element,index,matricula) => element.periodo.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 || element.codigo.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 );
             if( this.buscar.length<=0){
                 this.obtenerDatos();
             }
@@ -84,25 +88,34 @@ Vue.component('componentmatriculas',{
             let store = this.abrirStore('tblmatriculas','readonly'),
                 data = store.getAll();
             data.onsuccess=resp=>{
-                this.matriculas = data.result;
+                this.matricula = data.result;
             };
+            let storeAlumnos = this.abrirStore('tblalumnos', 'readonly'),
+                dataAlumno = storeAlumnos.getAll();
+            this.alumnos = [];
+            dataAlumno.onsuccess=resp=>{
+                dataAlumno.result.forEach(element => {
+                    this.alumnos.push({id:element.idAlumno, label:element.nombre});
+                });
+            };    
         },
-        mostrarMatricula(pro){
-            this.matricula = pro;
+        mostrarMatricula(matri){
+            this.matricula = matri;
             this.accion='modificar';
         },
         limpiar(){
             this.accion='nuevo';
+            this.matricula.alumno.id=0;
+            this.matricula.alumno.label="";
             this.matricula.codigo='';
-            this.matricula.alumno='';
             this.matricula.periodo='';
             this.matricula.fecha_de_matricula='';
             this.obtenerDatos();
         },
-        eliminarMatricula(pro){
-            if( confirm(`Esta seguro que desea eliminar el registro de matricula:  ${pro.alumno}`) ){
+        eliminarMatricula(matri){
+            if( confirm(`Esta seguro que desea eliminar el registro de matricula:  ${matri.codigo}`) ){
                 let store = this.abrirStore("tblmatriculas",'readwrite'),
-                    req = store.delete(pro.idMatricula);
+                    req = store.delete(matri.idMatricula);
                 req.onsuccess=resp=>{
                     this.mostrarMsg('Registro eliminado con exito',true);
                     this.obtenerDatos();
@@ -145,11 +158,12 @@ Vue.component('componentmatriculas',{
                     </div>
                     
                     <div class="row p-2">
-                        <div class="col-sm">ALUMNO: </div>
+                        <div class="col-sm">ALUMNO:</div>
                         <div class="col-sm">
-                            <input v-model="matricula.alumno" required pattern="[A-ZÑña-z0-9, ]{5,65}" type="text" class="form-control form-control-sm" placeholder="XXXX XXX XXXX XXXX">
+                            <v-select-alumnos v-model="matricula.alumno" :options="alumnos" placeholder="Por favor seleccione el nombre del registro"/>
                         </div>
                     </div>
+
                     <div class="row p-2">
                         <div class="col-sm">PERIODO: </div>
                         <div class="col-sm">
@@ -200,14 +214,14 @@ Vue.component('componentmatriculas',{
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="pro in matriculas" v-on:click="mostrarMatricula(pro)">
-                                        <td>{{ pro.codigo}}</td>
+                                    <tr v-for="matri in matricula" v-on:click="mostrarMatricula(matri)">
+                                        <td>{{ matri.codigo}}</td>
                                         
-                                        <td>{{ pro.alumno }}</td>
-                                        <td>{{ pro.periodo }}</td>
-                                        <td>{{ pro.fecha_de_matricula }}</td>
+                                        <td>{{ matri.periodo }}</td>
+                                        <td>{{ matri.fecha_de_matricula }}</td>
+                                        <td>{{ matri.alumno.label }}</td>
                                         <td>
-                                            <a @click.stop="eliminarMatricula(pro)" class="btn btn-danger">DEL</a>
+                                            <a @click.stop="eliminarMatricula(matri)" class="btn btn-danger">DEL</a>
                                         </td>
                                     </tr>
                                 </tbody>

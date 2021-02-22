@@ -1,4 +1,4 @@
-    Vue.component('componentinscripciones',{
+    Vue.component('component-inscripcion',{
         data:()=>{
             return {
                 accion : 'nuevo',
