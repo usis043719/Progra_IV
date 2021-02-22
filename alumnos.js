@@ -203,7 +203,7 @@ Vue.component('component-alumnos',{
         
         <div class="col-sm"></div>
         <div class="col-sm-6 p-2">
-            <div class="row text-center text-white btn-success">
+            <div class="row text-center text-white bg-primary">
                 <div class="col"><h5>ALUMNOS REGISTRADOS</h5></div>
             </div>
             
