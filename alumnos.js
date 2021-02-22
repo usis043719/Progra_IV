@@ -90,6 +90,14 @@ Vue.component('component-alumnos',{
                 this.alumnos = data.result;
             };
         },
+        obtenerImg(e){
+            //IMG 1
+            let rutaTemp = URL.createObjectURL(e.target.files[0]);
+            this.alumno.img = rutaTemp;
+            //IMG2
+            /*rutaTemp = URL.createObjectURL(e.target.files[1]);
+            this.producto.img2 = rutaTemp;*/
+        },
         mostrarAlumno(pro){
             this.alumno = pro;
             this.accion='modificar';
