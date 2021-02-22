@@ -6,7 +6,7 @@ var appVue = new Vue({
     el:'#appSistema',
     data:{
         forms:{
-            'alumno':{mostrar:false},
+            'alumnos':{mostrar:false},
             'matricula':{mostrar:false},
             'inscripcion':{mostrar:false},
 
