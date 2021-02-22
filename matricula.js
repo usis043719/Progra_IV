@@ -23,7 +23,7 @@ Vue.component('component-matricula',{
     },
     methods:{
         buscandoMatricula(){
-            this.matricula = this.matricula.filter((element,index,matricula) => element.periodo.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 || element.codigo.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 );
+            this.matricula = this.matricula.filter((element,index,matricula) => element.codigo.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 || element.periodo.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 );
             if( this.buscar.length<=0){
                 this.obtenerDatos();
             }
@@ -139,7 +139,7 @@ Vue.component('component-matricula',{
             <div class="row">
                 <div class="col-sm-5">
                     <div class="row p-2">
-                        <div class="col-sm text-center text-white bg-primary">
+                        <div class="col-sm text-center text-white btn-success">
                             <div class="row">
                                 <div class="col-11">
                                     <h5>REGISTRO DE MATRICULA</h5>
@@ -160,7 +160,7 @@ Vue.component('component-matricula',{
                     <div class="row p-2">
                         <div class="col-sm">ALUMNO:</div>
                         <div class="col-sm">
-                            <v-select-alumnos v-model="matricula.alumno" :options="alumnos" placeholder="Por favor seleccione el nombre del registro"/>
+                            <v-select-alumnos v-model="matricula.alumno" :options="alumnos" placeholder="Seleccione el nombre del alumno"/>
                         </div>
                     </div>
 
@@ -216,10 +216,10 @@ Vue.component('component-matricula',{
                                 <tbody>
                                     <tr v-for="matri in matricula" v-on:click="mostrarMatricula(matri)">
                                         <td>{{ matri.codigo}}</td>
-                                        
+                                        <td>{{ matri.alumno.label }}</td>
+
                                         <td>{{ matri.periodo }}</td>
                                         <td>{{ matri.fecha_de_matricula }}</td>
-                                        <td>{{ matri.alumno.label }}</td>
                                         <td>
                                             <a @click.stop="eliminarMatricula(matri)" class="btn btn-danger">DEL</a>
                                         </td>

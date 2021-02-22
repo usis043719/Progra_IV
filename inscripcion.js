@@ -125,7 +125,7 @@
                 <div class="row">
                     <div class="col-sm-5">
                         <div class="row p-2">
-                            <div class="col-sm text-center text-white bg-primary">
+                            <div class="col-sm text-center text-white btn-success">
                                 <div class="row">
                                     <div class="col-11">
                                         <h5>REGISTRO DE INSCRIPCION</h5>
@@ -139,19 +139,19 @@
                             <div class="row p-2">
                             <div class="col-sm">CODIGO: </div>
                             <div class="col-sm">
-                                <input v-model="inscripcion.codigo" required pattern="[0-9]{4}" type="number" class="form-control form-control-sm">
+                                <input v-model="inscripcion.codigo" required pattern="[0-9]{4}" type="number" class="form-control form-control-sm" placeholder="XXXX">
                             </div>
                         </div>
                         <div class="row p-2">
                             <div class="col-sm">ALUMNO: </div>
                             <div class="col-sm">
-                                <input v-model="inscripcion.alumno" required pattern="[A-ZÑña-z0-9, ]{5,65}" type="text" class="form-control form-control-sm">
+                                <input v-model="inscripcion.alumno" required pattern="[A-ZÑña-z0-9, ]{5,65}" type="text" class="form-control form-control-sm" placeholder="XXXX XXXX XXXX XXXX">
                             </div>
                         </div>
                         <div class="row p-2">
-                            <div class="col-sm">MATERIA: </div>
+                            <div class="col-sm">MATERIAS: </div>
                             <div class="col-sm">
-                                <input v-model="inscripcion.materia" required pattern="[0-9]{4}" type="number" class="form-control form-control-sm">
+                                <input v-model="inscripcion.materia" required pattern="[0-9]{4}" type="number" class="form-control form-control-sm" >
                             </div>
                         </div>
                         <div class="row p-2">
