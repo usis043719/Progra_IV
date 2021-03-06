@@ -18,6 +18,7 @@ var appVue = new Vue({
             indexDb.onupgradeneeded=event=>{
                 let req=event.target.result,
                     tblclientes = req.createObjectStore('tblclientes',{keyPath:'idCliente'});
+                    tblLecturas = req.createObjectStore('tblLecturas',{keyPath:'idLectura'});
                    
 
 
@@ -25,6 +26,11 @@ var appVue = new Vue({
                     tblclientes.createIndex('idCliente','idCliente',{unique:true});
                     tblclientes.createIndex('codigo','codigo',{unique:false});
                     tblclientes.createIndex('id','id',{unique:false});
+
+                    
+                    tblLecturas.createIndex('idLectura','idLectura',{unique:true});
+                    tblLecturas.createIndex('codigo','codigo',{unique:false});
+                    tblLecturas.createIndex('id','id',{unique:false});
 
                
 
