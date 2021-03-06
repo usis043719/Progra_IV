@@ -8,13 +8,13 @@ Vue.component('component-lecturas',{
         error  : false,
         buscar : "",
         lectura:{
-            nombre         : '',
+            idLectura      : 0,
             clientes : {
                 id : 0,
                 label : ''
             },
-            idLectura      : 0,
-            codigo         : '',
+            Lecturas_contador    : '',
+            Pago                 : '',
  
         },
         lecturas:[],
