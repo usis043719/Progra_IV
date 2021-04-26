@@ -23,17 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('salud');
+        return view('categorias');
     }
 
-    public function index2()
-    {
-        return view('docente');
-    }
-
-    public function index3()
-    {
-        return view('familia');
-    }
-  
 }

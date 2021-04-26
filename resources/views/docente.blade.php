@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends('welcome')
 
-@section('content')
+@section('contenidos')
 
-<h1>DOCENTE</h1>
+<h1>hola</h1>
+
 @endsection
+
