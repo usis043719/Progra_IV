@@ -23,12 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('docente');
+        return view('salud');
     }
 
     public function index2()
     {
-        return view('salud');
+        return view('docente');
     }
 
     public function index3()
