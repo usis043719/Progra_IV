@@ -1,54 +1,41 @@
 <template>
-    <form v-on:submit.prevent="guardarAlumno" v-on:reset="limpiar">
+    <form v-on:submit.prevent="guardarCalcular_peso" v-on:reset="limpiar">
     <div class="row">
         <div class="col-sm-5">
             <div class="row p-2">
                 <div class="col-sm text-center text-white btn-success">
-                    <h5>REGISTRO DE ALUMNOS</h5>
+                    <h5>CALCULAR PESO/h5>
                 </div>
             </div>
             <div class="row p-2"><!-- FUNCIONAL -->
                 <div class="col-sm">CODIGO:</div>
                 <div class="col-sm">
-                    <input v-model="alumno.codigo" required pattern="^[0-9]{4}$" type="text" class="form-control form-control-sm" placeholder="XXXX" >
+                    <input v-model="calcular_peso.codigo" required pattern="^[0-9]{4}$" type="text" class="form-control form-control-sm" placeholder="XXXX" >
                 </div>
             </div>
             <div class="row p-2"><!-- FUNCIONAL -->
                 <div class="col-sm">NOMBRE: </div>
                 <div class="col-sm">
-                    <input v-model="alumno.nombre" required pattern="[A-ZÑña-z0-9 ]{5,65}" type="text" class="form-control form-control-sm" placeholder="XXXX XXXX XXXX XXXX">
+                    <input v-model="calcular_peso.nombre" required pattern="[A-ZÑña-z0-9 ]{5,65}" type="text" class="form-control form-control-sm" placeholder="NOMBRE DEL ESTUDIANTE">
                 </div>
             </div>
             <div class="row p-2"><!-- FUNCIONAL -->
-                <div class="col-sm">DIRECCION: </div>
+                <div class="col-sm">PESO: </div>
                 <div class="col-sm">
-                    <input v-model="alumno.direccion" required pattern="[A-ZÑña-z0-9 ]{5,65}" type="text" class="form-control form-control-sm" placeholder="XXXXXX">
+                    <input v-model="calcular_peso.peso" required pattern="[A-ZÑña-z0-9 ]{5,65}" type="text" class="form-control form-control-sm" placeholder="INGRESAR PESO EN KILOGRAMO">
                 </div>
             </div>
             
             <div class="row p-2"><!-- FUNCIONAL -->
-                <div class="col-sm">DEPARTAMENTO: </div>
+                <div class="col-sm">ALTURA: </div>
                 <div class="col-sm">
-                    <input v-model="alumno.departamento" required pattern="[A-ZÑña-z0-9 ]{5,15}" type="text" class="form-control form-control-sm" placeholder="XXXXX">
+                    <input v-model="calcular_peso.altura" required pattern="[A-ZÑña-z0-9 ]{5,15}" type="text" class="form-control form-control-sm" placeholder="INGRESAR ALTURA EN METROS">
                 </div>
-            </div>
-            <div class="row p-2"><!-- FUNCIONAL -->
-                <div class="col-sm">TELEFONO:</div>
-                <div class="col-sm">
-                    <input v-model="alumno.telefono" required pattern="[0-9]{4}-[0-9]{4}" type="text" class="form-control form-control-sm" placeholder="Ejem: 0000-0000">
-                </div>
-            </div>
-            <div class="row p-2">
-                <div class="col-sm">FECHA_DE_NACIMIENTO: </div>
-                <div class="col-sm">
-                    <input v-model="alumno.fecha_de_nacimiento" required pattern="{0000-00-00}" type="date" class="form-control form-control-sm" placeholder="Ejem: 0000-00-00">
-                </div>
-            </div>
-            
+            </div>            
             <div class="row p-2"><!-- FUNCIONAL -->
                 <div class="col-sm">IMAGEN:</div>
                 <div class="col-sm">
-                    <img width="200" height="200" class="rounded-circle" :src="alumno.img">
+                    <img width="200" height="200" class="rounded-circle" :src="calcular_peso.img">
                     <!--<img class="img-fluid" :src="alumno.img2">-->
                     <input v-on:change="obtenerImg($event)" multiple type="file" class="form-control form-control-sm">
                 </div>
@@ -72,7 +59,7 @@
         <div class="col-sm"></div>
         <div class="col-sm-6 p-2">
             <div class="row text-center text-white bg-primary">
-                <div class="col"><h5>ALUMNOS REGISTRADOS</h5></div>
+                <div class="col"><h5>DATOS INGRESADOS</h5></div>
             </div>
             
             <div class="row">
@@ -87,29 +74,21 @@
                             <tr>
                                 <th>CODIGO</th>
                                 <th>NOMBRE</th>
-                                <th>DIRECCION</th>
-                                
-                                <th>DEPARTAMENTO</th>
-                                <th>TELEFONO</th>
-                                <th>FECHA_DE_NACIMIENTO</th>
-                                
+                                <th>PESO</th>   
+                                <th>ALTURA</th>
                                 <th>IMG</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="pro in alumnos" v-bind:key="pro.idAlumno" v-on:click="mostrarAlumno(pro)">
+                            <tr v-for="pro in calcular_peso" v-bind:key="pro.idcalcular_peso" v-on:click="mostrarcalcular_peso(pro)">
                                 <td>{{ pro.codigo }}</td>
                                 <td>{{ pro.nombre }}</td>
-                                <td>{{ pro.direccion }}</td>
-                                
-                                <td>{{ pro.departamento }}</td>
-                                <td>{{ pro.telefono }}</td>
-                                <td>{{ pro.fecha_de_nacimiento }}</td>
-                                
+                                <td>{{ pro.peso }}</td>                                
+                                <td>{{ pro.altura }}</td>
                                 <td>{{ pro.img }}</td>
                                 <td>
-                                    <a @click.stop="eliminarAlumno(pro)" class="btn btn-danger">DEL</a>
+                                    <a @click.stop="eliminarcalcular_peso(pro)" class="btn btn-danger">DEL</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -137,33 +116,29 @@ export default{
         status : false,
         error  : false,
         buscar : "",
-        alumno:{
-            idAlumno       : 0,
+        calcular_pesos:{
+            idcalcular_peso       : 0,
             codigo         : '',
             nombre         : '',
-            direccion      : '',
-           
-            departamento   : '',
-            telefono       : '',
-            fecha_de_nacimiento: '',
-            
+            peso      : '',   
+            altura  : '',
             img         : '/images/No-image-available.png',
             img2        : '/images/No-image-available.png'
         },
-        alumnos:[]
+        calcular_peso:[]
       }
     },
     methods:{
-        buscandoAlumno(){
-            this.alumnos = this.alumnos.filter((element,index,alumnos) => element.nombre.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 || element.codigo.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 );
+        buscandocalcular_peso(){
+            this.calcular_peso = this.calcular_peso.filter((element,index,calcular_peso) => element.nombre.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 || element.codigo.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 );
             if( this.buscar.length<=0){
                 this.obtenerDatos();
             }
         },
-        buscandoCodigoAlumno(store){
+        buscandoCodigocalcular_peso(store){
             let buscarCodigo = new Promise( (resolver,rechazar)=>{
                 let index = store.index("codigo"),
-                    data = index.get(this.alumno.codigo);
+                    data = index.get(this.calcular_peso.codigo);
                 data.onsuccess=evt=>{
                     resolver(data);
                 };
@@ -173,16 +148,16 @@ export default{
             });
             return buscarCodigo;
         },
-        async guardarAlumno(){
+        async guardarcalcular_peso(){
             /**
              * indexedDB -> BD NOSQL clave/valor
              */
-            let store = this.abrirStore("tblalumnos",'readwrite'),
+            let store = this.abrirStore("tblcalcular_pesos",'readwrite'),
                 duplicado = false;
             if( this.accion=='nuevo' ){
-                this.alumno.idAlumno = generarIdUnicoDesdeFecha();
+                this.alumno.idcalcular_peso = generarIdUnicoDesdeFecha();
                 
-                let data = await this.buscandoCodigoAlumno(store);
+                let data = await this.buscandoCodigocalcular_peso(store);
                 duplicado = data.result!=undefined;
             }
             if( duplicado==false){
@@ -215,41 +190,37 @@ export default{
             }, time*1000);
         },
         obtenerDatos(){
-            let store = this.abrirStore('tblalumnos','readonly'),
+            let store = this.abrirStore('tblcalcular_pesos','readonly'),
                 data = store.getAll();
             data.onsuccess=resp=>{
-                this.alumnos = data.result;
+                this.calcular_peso = data.result;
             };
         },
         obtenerImg(e){
             //IMG 1
             let rutaTemp = URL.createObjectURL(e.target.files[0]);
-            this.alumno.img = rutaTemp;
+            this.calcular_pesos.img = rutaTemp;
             //IMG2
             /*rutaTemp = URL.createObjectURL(e.target.files[1]);
             this.producto.img2 = rutaTemp;*/
         },
-        mostrarAlumno(pro){
+        mostrarcalcular_peso(pro){
             this.alumno = pro;
             this.accion='modificar';
         },
         limpiar(){
             this.accion='nuevo';
-            this.alumno.idAlumno='';
-            this.alumno.codigo='';
-            this.alumno.nombre='';
-            this.alumno.direccion='';
-            
-            this.alumno.departamento='';
-            this.alumno.telefono='';
-            this.alumno.fecha_de_nacimiento='';
-            
-            this.alumno.img='';
+            this.calcular_peso.idcalcular_peso='';
+            this.calcular_peso.codigo='';
+            this.calcular_peso.nombre='';
+            this.calcular_peso.peso='';           
+            this.calcular_peso.altura='';   
+            this.calcular_peso.img='';
             this.obtenerDatos();
         },
-        eliminarAlumno(pro){
+        eliminarcalcular_peso(pro){
             if( confirm(`Esta seguro que desea eliminar el alumno:  ${pro.nombre}`) ){
-                let store = this.abrirStore("tblalumnos",'readwrite'),
+                let store = this.abrirStore("tblcalcular_pesos",'readwrite'),
                     req = store.delete(pro.idAlumno);
                 req.onsuccess=resp=>{
                     this.mostrarMsg('Registro eliminado con exito',true);
