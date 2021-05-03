@@ -1,43 +1,48 @@
 <template>
+    <div class="container">
+        <vue-resizable :width="500" :drag-selector="toolbar">
             <form v-on:submit.prevent="guardarInscripcion" v-on:reset="limpiar">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <div class="row p-2">
-                            <div class="col-sm text-center text-white btn-success">
-                                <div class="row">
-                                    <div class="col-11">
-                                        <h5>INSCRIPCION DE ESTUDIANTES</h5>
-                                        </div>
-                                        <div class="col-1 align-middle" >
-                                            <button type="button" onclick="appVue.forms['inscripcion'].mostrar=false" class="btn-close" aria-label="Close"></button>
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="card border-dark mb-3">
+                    <div class="card-header bg-dark text-white toolbar">
+                        <div class="row">
+                            <div class="col-1">
+                                <img src="../../../public/img/inscripcion.png" alt="Inscripciones">
                             </div>
-                            <div class="row p-2">
-                            <div class="col-sm">CODIGO: </div>
+                            <div class="col-10">
+                                <h5>REGISTRO DE INSCRIPCIONES</h5>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" @click="cerrar" class="btn-close bg-white" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body text-dark">
+                        <div class="row p-2">
+                            <div class="col-sm">CODIGO:</div>
                             <div class="col-sm">
-                                <input v-model="inscripcion.codigo" required pattern="[0-9]{4}" type="number" class="form-control form-control-sm" placeholder="XXXX">
+                                <input v-model="inscripcion.codigo" required type="text" class="form-control form-control-sm" >
                             </div>
                         </div>
                         <div class="row p-2">
-                            <div class="col-sm">ALUMNO: </div>
+                            <div class="col-sm">NOMBRE: </div>
                             <div class="col-sm">
-                                <input v-model="inscripcion.alumno" required pattern="[A-ZÑña-z0-9, ]{5,65}" type="text" class="form-control form-control-sm" placeholder="XXXX XXXX XXXX XXXX">
+                                <input v-model="inscripcion.nombre" required pattern="[A-ZÑña-z0-9, ]{5,65}" type="text" class="form-control form-control-sm">
                             </div>
                         </div>
                         <div class="row p-2">
                             <div class="col-sm">DIRECCION: </div>
                             <div class="col-sm">
-                                <input v-model="inscripcion.direccion" required pattern="[0-9]{4}" type="number" class="form-control form-control-sm" >
+                                <input v-model="inscripcion.direccion" required pattern="[A-ZÑña-z0-9, ]{5,65}" type="text" class="form-control form-control-sm">
                             </div>
                         </div>
                         <div class="row p-2">
-                            <div class="col-sm">TELEFONO: </div>
+                            <div class="col-sm">TEL: </div>
                             <div class="col-sm">
-                                <input v-model="inscripcion.telefono" required pattern="[0-9]{4}-[0-9]{4}" type="text" class="form-control form-control-sm" placeholder="Ejem: 0000-0000">
+                                <input v-model="inscripcion.telefono" required pattern="[0-9]{4}-[0-9]{4}" type="text" class="form-control form-control-sm">
                             </div>
                         </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
                         <div class="row p-2">
                             <div class="col-sm text-center">
                                 <input type="submit" value="Guardar" class="btn btn-dark">
@@ -46,84 +51,95 @@
                         </div>
                         <div class="row p-2">
                             <div class="col-sm text-center">
-                                <div v-if="status" class="alert" v-bind:class="[error ? 'alert-danger' : 'alert-success']">
-                                    {{ msg }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm"></div>
-                    <div class="col-sm-6 p-2">
-                        <div class="row text-center text-white bg-primary">
-                            <div class="col"><h5>INSCRIPCION REGISTRADA</h5></div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <table class="table table-sm table-hover">
-                                    <thead>
-                                        <tr>
-                                            <td colspan="5">
-                                                <input v-model="buscar" v-on:keyup="buscandoInscripcion" type="text" class="form-control form-contro-sm" placeholder="Buscar Inscripcion">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>CODIGO</th>
-                                            <th>ALUMNO</th>
-                                            <th>DIRECCION</th>
-                                            <th>TELEFONO</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr v-for="pro in inscripcion" v-bind:key="pro.idInscripcion" v-on:click="mostrarInscripcion(pro)">
-                                           <td>{{ pro.codigo }}</td>
-                                            <td>{{ pro.alumno }}</td>
-                                            <td>{{ pro.direccion }}</td>
-                                            <td>{{ pro.telefono }}</td>
-                                            <td>
-                                                <a @click.stop="eliminarInscripcion(pro)" class="btn btn-danger">DEL</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <mensajes-component :msg="msg" :error="error" v-show="status" ></mensajes-component>
                             </div>
                         </div>
                     </div>
                 </div>
-           </form>
-        </template> 
+            </form>
+        </vue-resizable>
+        <vue-resizable :width="600" :drag-selector="toolbar">
+            <div class="card border-dark mb-3">
+                <div class="card-header bg-dark text-white toolbar">
+                    <div class="row">
+                        <div class="col-1">
+                            <img src="../../../public/img/buscar.png" alt="Inscripciones">
+                        </div>
+                        <div class="col-10">
+                            <h5>INSCRIPCIONES REGISTRADOS</h5>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" @click="cerrar" class="btn-close bg-white" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <td colspan="5">
+                                    <input v-model="buscar" v-on:keyup="buscandoInscripcion" type="text" class="form-control form-contro-sm" placeholder="Buscar inscripciones">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>CODIGO</th>
+                                <th>NOMBRE</th>
+                                <th>DIRECCION</th>
+                                <th>TEL</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="pro in inscripciones" v-bind:key="pro.idInscripcion" v-on:click="mostrarInscripcion(pro)">
+                                <td>{{ pro.codigo }}</td>
+                                <td>{{ pro.nombre }}</td>
+                                <td>{{ pro.direccion }}</td>
+                                <td>{{ pro.telefono }}</td>
+                                <td>
+                                    <a @click.stop="eliminarInscripcion(pro)" class="btn btn-danger">DEL</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </vue-resizable>
+    </div>
+</template>
 
-
-        <script>
-var generarIdUnicoDesdeFecha = () => {
-  let fecha = new Date(); //27/03/2021
-  return Math.floor(fecha.getTime() / 1000).toString(16);
-}
-export default {
-
-         data:()=>{
+<script> 
+    //https://github.com/nikitasnv/vue-resizable
+    Vue.component('vue-resizable',VueResizable.default);
+    export default {
+        props:['form'],
+        data(){
             return {
+                toolbar: '.toolbar',
                 accion : 'nuevo',
                 msg    : '',
                 status : false,
                 error  : false,
                 buscar : "",
                 inscripcion:{
+                    id        : 0,
                     idInscripcion : 0,
-                    codigo : '',
-                    alumno : '',
+                    codigo    : '',
+                    nombre    : '',
                     direccion : '',
-                    telefono : '',
+                    telefono  : '',
                 },
                 inscripciones:[]
             }
         },
         methods:{
             buscandoInscripcion(){
-                this.inscripciones = this.inscripciones.filter((element,index,inscripciones) => element.alumno.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 || element.codigo.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 );
+                this.inscripciones = this.inscripciones.filter((element,index,inscripciones) => element.nombre.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 || element.codigo.toUpperCase().indexOf(this.buscar.toUpperCase())>=0 );
                 if( this.buscar.length<=0){
                     this.obtenerDatos();
                 }
+            },
+            cerrar(){
+                this.form['inscripcion'].mostrar=false;
             },
             buscandoCodigoInscripcion(store){
                 let buscarCodigo = new Promise( (resolver,rechazar)=>{
@@ -140,7 +156,8 @@ export default {
             },
             async guardarInscripcion(){
                 /**
-                
+                 * webSQL -> DB Relacional en el navegador
+                 * localStorage -> BD NOSQL clave/valor
                  * indexedDB -> BD NOSQL clave/valor
                  */
                 let store = this.abrirStore("tblinscripciones",'readwrite'),
@@ -152,7 +169,14 @@ export default {
                     duplicado = data.result!=undefined;
                 }
                 if( duplicado==false){
-                    let query = store.put(this.inscripcion);
+                    if( this.accion=='nuevo' ){
+                        const resp = await axios.post('inscripciones',this.inscripcion);
+                        this.inscripcion.id = resp.data;
+                    } else {
+                        const resp = await axios.put(`inscripciones/${this.inscripcion.id}`,this.inscripcion);
+                    }
+                    let tabla = this.abrirStore("tblinscripciones",'readwrite'),
+                        query = tabla.put(this.inscripcion);
                     query.onsuccess=event=>{
                         this.obtenerDatos();
                         this.limpiar();
@@ -183,8 +207,26 @@ export default {
             obtenerDatos(){
                 let store = this.abrirStore('tblinscripciones','readonly'),
                     data = store.getAll();
-                data.onsuccess=resp=>{
-                    this.inscripciones = data.result;
+                data.onsuccess=async resp=>{
+                    if( data.result.length===0 ){
+                        const inscripciones = await axios.get('inscripciones');
+                        this.inscripciones = inscripciones.data;
+
+                        let tabla = this.abrirStore('tblinscripciones','readwrite');
+                        this.inscripciones.forEach(element => {
+                            let inscripcion = {
+                                id        : element.id,
+                                idInscripcion : element.idInscripcion,
+                                codigo    : element.codigo,
+                                nombre    : element.nombre,
+                                direccion : element.direccion,
+                                telefono  : element.telefono,
+                            };
+                            tabla.put(inscripcion);
+                        });
+                    } else {
+                        this.inscripciones = data.result;
+                    }
                 };
             },
             mostrarInscripcion(pro){
@@ -195,13 +237,15 @@ export default {
                 this.accion='nuevo';
                 this.inscripcion.idInscripcion='';
                 this.inscripcion.codigo='';
-                this.inscripcion.alumno='';
+                this.inscripcion.nombre='';
                 this.inscripcion.direccion='';
                 this.inscripcion.telefono='';
                 this.obtenerDatos();
             },
-            eliminarInscripcion(pro){
-                if( confirm(`Esta seguro que desea eliminar el registro de inscripcion:  ${pro.alumno}`) ){
+            async eliminarInscripcion(pro){
+                if( confirm(`Esta seguro que desea eliminar el inscripcion:  ${pro.nombre}`) ){
+                    const data = await axios.delete(`inscripciones/${pro.id}`);
+                    
                     let store = this.abrirStore("tblinscripciones",'readwrite'),
                         req = store.delete(pro.idInscripcion);
                     req.onsuccess=resp=>{
@@ -222,5 +266,5 @@ export default {
         created(){
             //this.obtenerDatos();
         },
-           }
+    }
 </script>

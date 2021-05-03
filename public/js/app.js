@@ -1960,24 +1960,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-var generarIdUnicoDesdeFecha = function generarIdUnicoDesdeFecha() {
-  var fecha = new Date(); //27/03/2021
-
-  return Math.floor(fecha.getTime() / 1000).toString(16);
-};
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//https://github.com/nikitasnv/vue-resizable
+Vue.component('vue-resizable', VueResizable["default"]);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['form'],
   data: function data() {
     return {
+      toolbar: '.toolbar',
       accion: 'nuevo',
       msg: '',
       status: false,
       error: false,
       buscar: "",
       inscripcion: {
+        id: 0,
         idInscripcion: 0,
         codigo: '',
-        alumno: '',
+        nombre: '',
         direccion: '',
         telefono: ''
       },
@@ -1989,12 +2001,15 @@ var generarIdUnicoDesdeFecha = function generarIdUnicoDesdeFecha() {
       var _this = this;
 
       this.inscripciones = this.inscripciones.filter(function (element, index, inscripciones) {
-        return element.alumno.toUpperCase().indexOf(_this.buscar.toUpperCase()) >= 0 || element.codigo.toUpperCase().indexOf(_this.buscar.toUpperCase()) >= 0;
+        return element.nombre.toUpperCase().indexOf(_this.buscar.toUpperCase()) >= 0 || element.codigo.toUpperCase().indexOf(_this.buscar.toUpperCase()) >= 0;
       });
 
       if (this.buscar.length <= 0) {
         this.obtenerDatos();
       }
+    },
+    cerrar: function cerrar() {
+      this.form['inscripcion'].mostrar = false;
     },
     buscandoCodigoInscripcion: function buscandoCodigoInscripcion(store) {
       var _this2 = this;
@@ -2017,13 +2032,15 @@ var generarIdUnicoDesdeFecha = function generarIdUnicoDesdeFecha() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var store, duplicado, data, query;
+        var store, duplicado, data, resp, _resp, tabla, query;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 /**
-                
+                 * webSQL -> DB Relacional en el navegador
+                 * localStorage -> BD NOSQL clave/valor
                  * indexedDB -> BD NOSQL clave/valor
                  */
                 store = _this3.abrirStore("tblinscripciones", 'readwrite'), duplicado = false;
@@ -2042,27 +2059,56 @@ var generarIdUnicoDesdeFecha = function generarIdUnicoDesdeFecha() {
                 duplicado = data.result != undefined;
 
               case 7:
-                if (duplicado == false) {
-                  query = store.put(_this3.inscripcion);
-
-                  query.onsuccess = function (event) {
-                    _this3.obtenerDatos();
-
-                    _this3.limpiar();
-
-                    _this3.mostrarMsg('Registro se guardo con exito', false);
-                  };
-
-                  query.onerror = function (event) {
-                    _this3.mostrarMsg('Error al guardar el registro', true);
-
-                    console.log(event);
-                  };
-                } else {
-                  _this3.mostrarMsg('Codigo de inscripcion duplicado', true);
+                if (!(duplicado == false)) {
+                  _context.next = 23;
+                  break;
                 }
 
-              case 8:
+                if (!(_this3.accion == 'nuevo')) {
+                  _context.next = 15;
+                  break;
+                }
+
+                _context.next = 11;
+                return axios.post('inscripciones', _this3.inscripcion);
+
+              case 11:
+                resp = _context.sent;
+                _this3.inscripcion.id = resp.data;
+                _context.next = 18;
+                break;
+
+              case 15:
+                _context.next = 17;
+                return axios.put("inscripciones/".concat(_this3.inscripcion.id), _this3.inscripcion);
+
+              case 17:
+                _resp = _context.sent;
+
+              case 18:
+                tabla = _this3.abrirStore("tblinscripciones", 'readwrite'), query = tabla.put(_this3.inscripcion);
+
+                query.onsuccess = function (event) {
+                  _this3.obtenerDatos();
+
+                  _this3.limpiar();
+
+                  _this3.mostrarMsg('Registro se guardo con exito', false);
+                };
+
+                query.onerror = function (event) {
+                  _this3.mostrarMsg('Error al guardar el registro', true);
+
+                  console.log(event);
+                };
+
+                _context.next = 24;
+                break;
+
+              case 23:
+                _this3.mostrarMsg('Codigo de inscripcion duplicado', true);
+
+              case 24:
               case "end":
                 return _context.stop();
             }
@@ -2091,9 +2137,56 @@ var generarIdUnicoDesdeFecha = function generarIdUnicoDesdeFecha() {
       var store = this.abrirStore('tblinscripciones', 'readonly'),
           data = store.getAll();
 
-      data.onsuccess = function (resp) {
-        _this5.inscripciones = data.result;
-      };
+      data.onsuccess = /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(resp) {
+          var inscripciones, tabla;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  if (!(data.result.length === 0)) {
+                    _context2.next = 9;
+                    break;
+                  }
+
+                  _context2.next = 3;
+                  return axios.get('inscripciones');
+
+                case 3:
+                  inscripciones = _context2.sent;
+                  _this5.inscripciones = inscripciones.data;
+                  tabla = _this5.abrirStore('tblinscripciones', 'readwrite');
+
+                  _this5.inscripciones.forEach(function (element) {
+                    var inscripcion = {
+                      id: element.id,
+                      idInscripcion: element.idInscripcion,
+                      codigo: element.codigo,
+                      nombre: element.nombre,
+                      direccion: element.direccion,
+                      telefono: element.telefono
+                    };
+                    tabla.put(inscripcion);
+                  });
+
+                  _context2.next = 10;
+                  break;
+
+                case 9:
+                  _this5.inscripciones = data.result;
+
+                case 10:
+                case "end":
+                  return _context2.stop();
+              }
+            }
+          }, _callee2);
+        }));
+
+        return function (_x) {
+          return _ref.apply(this, arguments);
+        };
+      }();
     },
     mostrarInscripcion: function mostrarInscripcion(pro) {
       this.inscripcion = pro;
@@ -2103,7 +2196,7 @@ var generarIdUnicoDesdeFecha = function generarIdUnicoDesdeFecha() {
       this.accion = 'nuevo';
       this.inscripcion.idInscripcion = '';
       this.inscripcion.codigo = '';
-      this.inscripcion.alumno = '';
+      this.inscripcion.nombre = '';
       this.inscripcion.direccion = '';
       this.inscripcion.telefono = '';
       this.obtenerDatos();
@@ -2111,22 +2204,43 @@ var generarIdUnicoDesdeFecha = function generarIdUnicoDesdeFecha() {
     eliminarInscripcion: function eliminarInscripcion(pro) {
       var _this6 = this;
 
-      if (confirm("Esta seguro que desea eliminar el registro de inscripcion:  ".concat(pro.alumno))) {
-        var store = this.abrirStore("tblinscripciones", 'readwrite'),
-            req = store["delete"](pro.idInscripcion);
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var data, store, req;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!confirm("Esta seguro que desea eliminar el inscripcion:  ".concat(pro.nombre))) {
+                  _context3.next = 7;
+                  break;
+                }
 
-        req.onsuccess = function (resp) {
-          _this6.mostrarMsg('Registro eliminado con exito', true);
+                _context3.next = 3;
+                return axios["delete"]("inscripciones/".concat(pro.id));
 
-          _this6.obtenerDatos();
-        };
+              case 3:
+                data = _context3.sent;
+                store = _this6.abrirStore("tblinscripciones", 'readwrite'), req = store["delete"](pro.idInscripcion);
 
-        req.onerror = function (resp) {
-          _this6.mostrarMsg('Error al eliminar el registro', true);
+                req.onsuccess = function (resp) {
+                  _this6.mostrarMsg('Registro eliminado con exito', true);
 
-          console.log(resp);
-        };
-      }
+                  _this6.obtenerDatos();
+                };
+
+                req.onerror = function (resp) {
+                  _this6.mostrarMsg('Error al eliminar el registro', true);
+
+                  console.log(resp);
+                };
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     },
     abrirStore: function abrirStore(store, modo) {
       var tx = db.transaction(store, modo);
@@ -38502,179 +38616,276 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "form",
-    {
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.guardarInscripcion($event)
-        },
-        reset: _vm.limpiar
-      }
-    },
+    "div",
+    { staticClass: "container" },
     [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-5" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "row p-2" }, [
-            _c("div", { staticClass: "col-sm" }, [_vm._v("CODIGO: ")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscripcion.codigo,
-                    expression: "inscripcion.codigo"
-                  }
-                ],
-                staticClass: "form-control form-control-sm",
-                attrs: {
-                  required: "",
-                  pattern: "[0-9]{4}",
-                  type: "number",
-                  placeholder: "XXXX"
+      _c(
+        "vue-resizable",
+        { attrs: { width: 500, "drag-selector": _vm.toolbar } },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.guardarInscripcion($event)
                 },
-                domProps: { value: _vm.inscripcion.codigo },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.inscripcion, "codigo", $event.target.value)
-                  }
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row p-2" }, [
-            _c("div", { staticClass: "col-sm" }, [_vm._v("ALUMNO: ")]),
+                reset: _vm.limpiar
+              }
+            },
+            [
+              _c("div", { staticClass: "card border-dark mb-3" }, [
+                _c(
+                  "div",
+                  { staticClass: "card-header bg-dark text-white toolbar" },
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-1" }, [
+                        _c("img", {
+                          attrs: {
+                            src: __webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module '../../../public/img/inscripcion.png'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+                            alt: "Inscripciones"
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-10" }, [
+                        _c("h5", [_vm._v("REGISTRO DE INSCRIPCIONES")])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-1" }, [
+                        _c("button", {
+                          staticClass: "btn-close bg-white",
+                          attrs: { type: "button", "aria-label": "Close" },
+                          on: { click: _vm.cerrar }
+                        })
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body text-dark" }, [
+                  _c("div", { staticClass: "row p-2" }, [
+                    _c("div", { staticClass: "col-sm" }, [_vm._v("CODIGO:")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.inscripcion.codigo,
+                            expression: "inscripcion.codigo"
+                          }
+                        ],
+                        staticClass: "form-control form-control-sm",
+                        attrs: { required: "", type: "text" },
+                        domProps: { value: _vm.inscripcion.codigo },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.inscripcion,
+                              "codigo",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row p-2" }, [
+                    _c("div", { staticClass: "col-sm" }, [_vm._v("NOMBRE: ")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.inscripcion.nombre,
+                            expression: "inscripcion.nombre"
+                          }
+                        ],
+                        staticClass: "form-control form-control-sm",
+                        attrs: {
+                          required: "",
+                          pattern: "[A-ZÑña-z0-9, ]{5,65}",
+                          type: "text"
+                        },
+                        domProps: { value: _vm.inscripcion.nombre },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.inscripcion,
+                              "nombre",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row p-2" }, [
+                    _c("div", { staticClass: "col-sm" }, [
+                      _vm._v("DIRECCION: ")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.inscripcion.direccion,
+                            expression: "inscripcion.direccion"
+                          }
+                        ],
+                        staticClass: "form-control form-control-sm",
+                        attrs: {
+                          required: "",
+                          pattern: "[A-ZÑña-z0-9, ]{5,65}",
+                          type: "text"
+                        },
+                        domProps: { value: _vm.inscripcion.direccion },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.inscripcion,
+                              "direccion",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row p-2" }, [
+                    _c("div", { staticClass: "col-sm" }, [_vm._v("TEL: ")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.inscripcion.telefono,
+                            expression: "inscripcion.telefono"
+                          }
+                        ],
+                        staticClass: "form-control form-control-sm",
+                        attrs: {
+                          required: "",
+                          pattern: "[0-9]{4}-[0-9]{4}",
+                          type: "text"
+                        },
+                        domProps: { value: _vm.inscripcion.telefono },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.inscripcion,
+                              "telefono",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-footer bg-transparent" }, [
+                  _c("div", { staticClass: "row p-2" }, [
+                    _c("div", { staticClass: "col-sm text-center" }, [
+                      _c("input", {
+                        staticClass: "btn btn-dark",
+                        attrs: { type: "submit", value: "Guardar" }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "btn btn-warning",
+                        attrs: { type: "reset", value: "Limpiar" }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row p-2" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-sm text-center" },
+                      [
+                        _c("mensajes-component", {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.status,
+                              expression: "status"
+                            }
+                          ],
+                          attrs: { msg: _vm.msg, error: _vm.error }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "vue-resizable",
+        { attrs: { width: 600, "drag-selector": _vm.toolbar } },
+        [
+          _c("div", { staticClass: "card border-dark mb-3" }, [
+            _c(
+              "div",
+              { staticClass: "card-header bg-dark text-white toolbar" },
+              [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-1" }, [
+                    _c("img", {
+                      attrs: {
+                        src: __webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module '../../../public/img/buscar.png'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+                        alt: "Inscripciones"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-10" }, [
+                    _c("h5", [_vm._v("INSCRIPCIONES REGISTRADOS")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-1" }, [
+                    _c("button", {
+                      staticClass: "btn-close bg-white",
+                      attrs: { type: "button", "aria-label": "Close" },
+                      on: { click: _vm.cerrar }
+                    })
+                  ])
+                ])
+              ]
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-sm" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscripcion.alumno,
-                    expression: "inscripcion.alumno"
-                  }
-                ],
-                staticClass: "form-control form-control-sm",
-                attrs: {
-                  required: "",
-                  pattern: "[A-ZÑña-z0-9, ]{5,65}",
-                  type: "text",
-                  placeholder: "XXXX XXXX XXXX XXXX"
-                },
-                domProps: { value: _vm.inscripcion.alumno },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.inscripcion, "alumno", $event.target.value)
-                  }
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row p-2" }, [
-            _c("div", { staticClass: "col-sm" }, [_vm._v("DIRECCION: ")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscripcion.direccion,
-                    expression: "inscripcion.direccion"
-                  }
-                ],
-                staticClass: "form-control form-control-sm",
-                attrs: { required: "", pattern: "[0-9]{4}", type: "number" },
-                domProps: { value: _vm.inscripcion.direccion },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.inscripcion, "direccion", $event.target.value)
-                  }
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row p-2" }, [
-            _c("div", { staticClass: "col-sm" }, [_vm._v("TELEFONO: ")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.inscripcion.telefono,
-                    expression: "inscripcion.telefono"
-                  }
-                ],
-                staticClass: "form-control form-control-sm",
-                attrs: {
-                  required: "",
-                  pattern: "[0-9]{4}-[0-9]{4}",
-                  type: "text",
-                  placeholder: "Ejem: 0000-0000"
-                },
-                domProps: { value: _vm.inscripcion.telefono },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.inscripcion, "telefono", $event.target.value)
-                  }
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _vm._m(1),
-          _vm._v(" "),
-          _c("div", { staticClass: "row p-2" }, [
-            _c("div", { staticClass: "col-sm text-center" }, [
-              _vm.status
-                ? _c(
-                    "div",
-                    {
-                      staticClass: "alert",
-                      class: [_vm.error ? "alert-danger" : "alert-success"]
-                    },
-                    [
-                      _vm._v(
-                        "\n                         " +
-                          _vm._s(_vm.msg) +
-                          "\n                     "
-                      )
-                    ]
-                  )
-                : _vm._e()
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-6 p-2" }, [
-          _vm._m(2),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "card-body" }, [
               _c("table", { staticClass: "table table-sm table-hover" }, [
                 _c("thead", [
                   _c("tr", [
@@ -38691,7 +38902,7 @@ var render = function() {
                         staticClass: "form-control form-contro-sm",
                         attrs: {
                           type: "text",
-                          placeholder: "Buscar Inscripcion"
+                          placeholder: "Buscar inscripciones"
                         },
                         domProps: { value: _vm.buscar },
                         on: {
@@ -38707,12 +38918,22 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(3)
+                  _c("tr", [
+                    _c("th", [_vm._v("CODIGO")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("NOMBRE")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("DIRECCION")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("TEL")]),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
                 ]),
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.inscripcion, function(pro) {
+                  _vm._l(_vm.inscripciones, function(pro) {
                     return _c(
                       "tr",
                       {
@@ -38726,7 +38947,7 @@ var render = function() {
                       [
                         _c("td", [_vm._v(_vm._s(pro.codigo))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(pro.alumno))]),
+                        _c("td", [_vm._v(_vm._s(pro.nombre))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(pro.direccion))]),
                         _vm._v(" "),
@@ -38755,82 +38976,13 @@ var render = function() {
               ])
             ])
           ])
-        ])
-      ])
-    ]
+        ]
+      )
+    ],
+    1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row p-2" }, [
-      _c("div", { staticClass: "col-sm text-center text-white btn-success" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-11" }, [
-            _c("h5", [_vm._v("INSCRIPCION DE ESTUDIANTES")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-1 align-middle" }, [
-            _c("button", {
-              staticClass: "btn-close",
-              attrs: {
-                type: "button",
-                onclick: "appVue.forms['inscripcion'].mostrar=false",
-                "aria-label": "Close"
-              }
-            })
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row p-2" }, [
-      _c("div", { staticClass: "col-sm text-center" }, [
-        _c("input", {
-          staticClass: "btn btn-dark",
-          attrs: { type: "submit", value: "Guardar" }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "btn btn-warning",
-          attrs: { type: "reset", value: "Limpiar" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row text-center text-white bg-primary" }, [
-      _c("div", { staticClass: "col" }, [
-        _c("h5", [_vm._v("INSCRIPCION REGISTRADA")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("CODIGO")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("ALUMNO")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("DIRECCION")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("TELEFONO")]),
-      _vm._v(" "),
-      _c("th")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
