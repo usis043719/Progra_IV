@@ -21,13 +21,25 @@
     </style>
 </head>
 <body>
-    <div id="app">
+
+
+<div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">BIENVENID@S ALIMENTOS SALUDABLES</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                
+                        <li class="nav-item">
+                            <a class="nav-link" @click="abrirForm('inscripcion')" href="#">INSCRIPCION</a>
+                        </li>
+              
+                    </ul>
+
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
@@ -64,6 +76,9 @@
         </nav>
     </div>
     </div>
+
+    <inscripciones-component v-bind:form="forms" ref="inscripcion" v-show="forms['inscripcion'].mostrar"></inscripciones-component>
+        </div>
 
                 
                   @yield('contenidos')

@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('categorias');
+        return view('interfas_base');
     }
 
 }
