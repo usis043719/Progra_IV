@@ -6827,6 +6827,36 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./public/img/buscar.png":
+/*!*******************************!*\
+  !*** ./public/img/buscar.png ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/buscar.png?db2cb9e6e3b3e5773120b6e68a57c2a2");
+
+/***/ }),
+
+/***/ "./public/img/inscripcion.png":
+/*!************************************!*\
+  !*** ./public/img/inscripcion.png ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/inscripcion.png?35263cfcc749b32dc9edc41b50db0f26");
+
+/***/ }),
+
 /***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\
   !*** ./node_modules/jquery/dist/jquery.js ***!
@@ -38644,7 +38674,7 @@ var render = function() {
                       _c("div", { staticClass: "col-1" }, [
                         _c("img", {
                           attrs: {
-                            src: __webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module '../../../public/img/inscripcion.png'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+                            src: __webpack_require__(/*! ../../../public/img/inscripcion.png */ "./public/img/inscripcion.png"),
                             alt: "Inscripciones"
                           }
                         })
@@ -38864,7 +38894,7 @@ var render = function() {
                   _c("div", { staticClass: "col-1" }, [
                     _c("img", {
                       attrs: {
-                        src: __webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module '../../../public/img/buscar.png'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+                        src: __webpack_require__(/*! ../../../public/img/buscar.png */ "./public/img/buscar.png"),
                         alt: "Inscripciones"
                       }
                     })
