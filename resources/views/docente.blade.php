@@ -3,7 +3,7 @@
 @section('content')
 
 <!doctype html>
-<html lang="en">
+<html lang="esp">
   <head>
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -16,7 +16,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.83.1">
-    <title>Docente</title>
+    <title>Docentes</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/features/">
 

@@ -2462,6 +2462,10 @@ window.generarIdUnicoDesdeFecha = function () {
 
   return Math.floor(fecha.getTime() / 1000).toString(16);
 };
+
+window.socket = io.connect('http://localhost:3001', {
+  'forceNew': true
+});
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -2471,7 +2475,6 @@ window.generarIdUnicoDesdeFecha = function () {
  */
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
 
 Vue.component('inscripciones-component', __webpack_require__(/*! ./components/inscripciones.vue */ "./resources/js/components/inscripciones.vue").default);
 Vue.component('chat-component', __webpack_require__(/*! ./components/chat.vue */ "./resources/js/components/chat.vue").default);
