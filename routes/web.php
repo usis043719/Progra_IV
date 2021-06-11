@@ -24,6 +24,8 @@ Route::view('/salud', 'salud')->name('salud');
 
 Route::view('/familia', 'familia')->name('familia');
 
+Route::view('/chat', 'chat')->name('chat');
+
 
 Auth::routes();
 

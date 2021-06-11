@@ -14,9 +14,9 @@ window.generarIdUnicoDesdeFecha=()=>{
     return Math.floor(fecha.getTime()/1000).toString(16);
 };
 
-
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
 window.socket = io.connect('http://localhost:3001',{'forceNew':true});
-
  /**
   * The following block of code may be used to automatically register your
   * Vue components. It will recursively scan this directory for the Vue
