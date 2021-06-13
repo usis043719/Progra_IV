@@ -6,7 +6,7 @@
                     <div class="card-header bg-dark text-white toolbar">
                         <div class="row">
                             <div class="col-1">
-                                <img src="../../../public/img/chats.png" alt="Chats">
+                                <img src="../../../public/img/chat.png" alt="Chats">
                             </div>
                             <div class="col-9">
                                 <h5>CHATS</h5>
@@ -19,8 +19,12 @@
                     <div class="card-body text-dark">
                         <div class="row p-2">
                             <div class="col-sm">
-                                <ul>
-                                   <li v-for="mimsg in chats" :key="mimsg._id">{{ mimsg.from }} : {{ mimsg.msg }}</li> 
+                                <ul id="ltsMensajes">
+                                   <li v-for="mimsg in chats" :key="mimsg._id">
+                                       {{ mimsg.from }} :
+                                       <img class="rounded img-thumbnail" width="100" height="100" v-if=" (/\.(jpg|png|gif|bmp|jfif)$/i).test(mimsg.msg)" :src="'/archivos/'+mimsg.msg" alt="Imgamen">
+                                       <span v-else>{{ mimsg.msg }}</span>
+                                    </li> 
                                 </ul>
                             </div>
                             <div class="col-sm">
@@ -34,6 +38,7 @@
                                 <input v-model="chat.msg" type="text" placeholder="Escribe tu mensaje aqui" class="form-control" required @keyup.enter.once="guardarChat">
                             </div>
                             <div class="col">
+                                <input @change="fileChat" type="file" name="flChat" id="flChat" title="Seleccione un archivo" alt="Seleccione un archivo" >
                                 <a @click="guardarChat">
                                     <img src="../../../public/img/enviar.png" width="50" height="50" alt="Enviar">
                                 </a>
@@ -61,6 +66,9 @@
                 msg    : '',
                 status : false,
                 error  : false,
+                flName : '',
+                file   : '',
+                FReader : '',
                 chat:{
                     id     : 0,
                     from   : document.querySelector("#navbarDropdown").innerText,
@@ -131,13 +139,54 @@
                 this.chat.fecha='';
                 this.obtenerDatos();
             },
+            mostrarNotificaciones(user, msg){
+                if( !windowFocus ){
+                    if(Notification.permission=="granted"){
+                        let options = {
+                            body:msg,
+                            icon: "/img/chats.png"
+                        };
+                        let notificacion = new Notification(user, options);
+                    } else {
+                        alert("NO hay permisos para enviar notificaciones...");
+                    }   
+                }
+            },
+            fileChat(file){
+                this.flName = file.target.files[0].name;
+                this.file = file.target.files[0];
+                this.chat.msg = this.flName;
+                this.FReader.onload = event=>{
+                    this.chat.Data = event.target.result;
+                    socket.emit('envio_archivos', this.chat);
+                };
+                socket.emit('inicio_envio_archivos', { 'Name' : this.flName, 'Size' : this.file.size });
+            }
         },
         created(){
+            this.FReader = new FileReader();
             this.obtenerDatos();
 
             socket.on('chat',chat=>{
                 this.mostrarDatos(chat);
+                this.mostrarNotificaciones(chat.from, chat.msg);
+            });
+            socket.on('MoreData', data=>{
+                var Place = data['Place'] * 524288; //The Next Blocks Starting Position
+                var NewFile; //The Variable that will hold the new Block of Data
+                if(this.file.slice){ 
+                    NewFile = this.file.slice(Place, Place + Math.min(524288, (this.file.size-Place)));
+                }
+                this.FReader.readAsBinaryString(NewFile);
             });
         },
     }
 </script>
+<style>
+    #ltsMensajes{
+        width: 450px;
+        height: 350px;
+        overflow-y: scroll;
+    }
+    
+</style>

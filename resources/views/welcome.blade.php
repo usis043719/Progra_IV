@@ -27,15 +27,16 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     
                    
                 <li class="nav-item">
-                            <a class="nav-link"  href="/chat">CHAT</a>
-                </li>
+                            <a class="nav-link" @click="abrirForm('chat')" href="#">Chat</a>
+                        </li>
 
-                </ul>
+                    </ul>
+
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -73,12 +74,12 @@
                 </div>
             </div>
         </nav>
+        @yield('contenidos')
+ 
+        <chat-component v-bind:form="forms" ref="chat" v-show="forms['chat'].mostrar"></chat-component>
     </div>
     </div>
-
-                
-                  @yield('contenidos')
-
+</div>
 
     <script src="https://unpkg.com/vue-resizable@1"></script>
     <script src="https://cdn.socket.io/4.1.1/socket.io.min.js" integrity="sha384-cdrFIqe3RasCMNE0jeFG9xJHog/tgOVC1E9Lzve8LQN1g5WUHo0Kvk1mawWjxX7a" crossorigin="anonymous"></script>
