@@ -2521,6 +2521,25 @@ window.generarIdUnicoDesdeFecha = function () {
   return Math.floor(fecha.getTime() / 1000).toString(16);
 };
 
+if (!Notification) {
+  alert("Tu navegador NO soporta notificaciones");
+}
+
+window.permitirNotificacion = "default";
+Notification.requestPermission().then(function (result) {
+  window.permitirNotificacion = result;
+});
+window.windowFocus = false;
+document.addEventListener("DOMContentLoaded", function (e) {
+  window.addEventListener("blur", function (e) {
+    window.windowFocus = false;
+    console.log("Fuera de la pantalla");
+  });
+  window.addEventListener("focus", function (e) {
+    window.windowFocus = true;
+    console.log("dentro de la pantalla");
+  });
+});
 
 
 window.socket = io.connect('http://localhost:3001', {
@@ -2549,10 +2568,10 @@ var app = new Vue({
   el: '#app',
   data: {
     forms: {
-      'inscripcion': {
+      'chat': {
         mostrar: false
       },
-      'chat': {
+      'inscripciones': {
         mostrar: false
       }
     }
@@ -7203,66 +7222,6 @@ module.exports = function (cssWithMappingToString) {
 
   return list;
 };
-
-/***/ }),
-
-/***/ "./public/img/buscar.png":
-/*!*******************************!*\
-  !*** ./public/img/buscar.png ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/buscar.png?7d3ef03d5036bc9b565c9d016331fda4");
-
-/***/ }),
-
-/***/ "./public/img/chat.png":
-/*!*****************************!*\
-  !*** ./public/img/chat.png ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/chat.png?079fbcdb2e5647104559bb266be89214");
-
-/***/ }),
-
-/***/ "./public/img/enviar.png":
-/*!*******************************!*\
-  !*** ./public/img/enviar.png ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/enviar.png?99bb01a2023dcc9e4de85be9d5746579");
-
-/***/ }),
-
-/***/ "./public/img/inscripcion.png":
-/*!************************************!*\
-  !*** ./public/img/inscripcion.png ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/inscripcion.png?35263cfcc749b32dc9edc41b50db0f26");
 
 /***/ }),
 
@@ -39173,10 +39132,7 @@ var render = function() {
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-1" }, [
                         _c("img", {
-                          attrs: {
-                            src: __webpack_require__(/*! ../../../public/img/chat.png */ "./public/img/chat.png"),
-                            alt: "Chats"
-                          }
+                          attrs: { src: "/img/chat.png", alt: "Chats" }
                         })
                       ]),
                       _vm._v(" "),
@@ -39289,7 +39245,7 @@ var render = function() {
                       _c("a", { on: { click: _vm.guardarChat } }, [
                         _c("img", {
                           attrs: {
-                            src: __webpack_require__(/*! ../../../public/img/enviar.png */ "./public/img/enviar.png"),
+                            src: "/img/enviar.png",
                             width: "50",
                             height: "50",
                             alt: "Enviar"
@@ -39381,7 +39337,7 @@ var render = function() {
                       _c("div", { staticClass: "col-1" }, [
                         _c("img", {
                           attrs: {
-                            src: __webpack_require__(/*! ../../../public/img/inscripcion.png */ "./public/img/inscripcion.png"),
+                            src: "/img/inscripcion.png",
                             alt: "Inscripciones"
                           }
                         })
@@ -39600,10 +39556,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-1" }, [
                     _c("img", {
-                      attrs: {
-                        src: __webpack_require__(/*! ../../../public/img/buscar.png */ "./public/img/buscar.png"),
-                        alt: "Inscripciones"
-                      }
+                      attrs: { src: "/img/buscar.png", alt: "Inscripciones" }
                     })
                   ]),
                   _vm._v(" "),

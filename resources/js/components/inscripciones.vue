@@ -6,7 +6,7 @@
                     <div class="card-header bg-dark text-white toolbar">
                         <div class="row">
                             <div class="col-1">
-                                <img src="../../../public/img/inscripcion.png" alt="Inscripciones">
+                                <img src="/img/inscripcion.png" alt="Inscripciones">
                             </div>
                             <div class="col-10">
                                 <h5>REGISTRO DE INSCRIPCIONES</h5>
@@ -63,7 +63,7 @@
                 <div class="card-header bg-dark text-white toolbar">
                     <div class="row">
                         <div class="col-1">
-                            <img src="../../../public/img/buscar.png" alt="Inscripciones">
+                            <img src="/img/buscar.png" alt="Inscripciones">
                         </div>
                         <div class="col-10">
                             <h5>INSCRIPCIONES REGISTRADOS</h5>

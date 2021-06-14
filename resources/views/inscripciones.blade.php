@@ -35,7 +35,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 
                         <li class="nav-item">
-                            <a class="nav-link" @click="abrirForm('inscripcion')" href="#">INSCRIPCION</a>
+                            <a class="nav-link" @click="abrirForm('inscripciones')" href="#">INSCRIPCION</a>
                         </li>
               
                     </ul>
@@ -77,7 +77,7 @@
     </div>
     </div>
 
-    <inscripciones-component v-bind:form="forms" ref="inscripcion" v-show="forms['inscripcion'].mostrar"></inscripciones-component>
+    <inscripciones-component v-bind:form="forms" ref="inscripciones" v-show="forms['inscripciones'].mostrar"></inscripciones-component>
         </div>
 
                 

@@ -35,6 +35,9 @@
                             <a class="nav-link" @click="abrirForm('chat')" href="#">Chat</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" @click="abrirForm('inscripciones')" href="#">Inscripciones</a>
+                        </li>
                     </ul>
 
 
@@ -76,7 +79,9 @@
         </nav>
         @yield('contenidos')
  
+        <inscripciones-component v-bind:form="forms" ref="inscripciones" v-show="forms['inscripciones'].mostrar"></inscripciones-component>
         <chat-component v-bind:form="forms" ref="chat" v-show="forms['chat'].mostrar"></chat-component>
+       
     </div>
     </div>
 </div>
@@ -84,5 +89,7 @@
     <script src="https://unpkg.com/vue-resizable@1"></script>
     <script src="https://cdn.socket.io/4.1.1/socket.io.min.js" integrity="sha384-cdrFIqe3RasCMNE0jeFG9xJHog/tgOVC1E9Lzve8LQN1g5WUHo0Kvk1mawWjxX7a" crossorigin="anonymous"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/push.js') }}"></script>
+   
 </body>
 </html>

@@ -6,7 +6,7 @@
                     <div class="card-header bg-dark text-white toolbar">
                         <div class="row">
                             <div class="col-1">
-                                <img src="../../../public/img/chat.png" alt="Chats">
+                                <img src="/img/chat.png" alt="Chats">
                             </div>
                             <div class="col-9">
                                 <h5>CHATS</h5>
@@ -40,7 +40,7 @@
                             <div class="col">
                                 <input @change="fileChat" type="file" name="flChat" id="flChat" title="Seleccione un archivo" alt="Seleccione un archivo" >
                                 <a @click="guardarChat">
-                                    <img src="../../../public/img/enviar.png" width="50" height="50" alt="Enviar">
+                                    <img src="/img/enviar.png" width="50" height="50" alt="Enviar">
                                 </a>
                             </div>
                         </div>

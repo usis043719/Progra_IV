@@ -26,6 +26,10 @@ Route::view('/familia', 'familia')->name('familia');
 
 Route::view('/chat', 'chat')->name('chat');
 
+Route::apiResources([
+    'inscripciones'=>ProductosController::class
+]);
+
 
 Auth::routes();
 
