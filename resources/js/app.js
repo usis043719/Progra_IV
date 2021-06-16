@@ -49,6 +49,8 @@ window.socket = io.connect('http://localhost:3001',{'forceNew':true});
  
  Vue.component('inscripciones-component', require('./components/inscripciones.vue').default);
  Vue.component('chat-component', require('./components/chat.vue').default);
+ Vue.component('mensajes-component', require('./components/mensajes.vue').default);
+
 Vue.component('v-select-categorias', vSelect)
  /**
   * Next, we will create a fresh Vue application instance and attach it to

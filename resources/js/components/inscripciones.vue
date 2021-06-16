@@ -12,7 +12,7 @@
                                 <h5>REGISTRO DE INSCRIPCIONES</h5>
                             </div>
                             <div class="col-1">
-                                <button type="button" @click="cerrar" class="btn-close bg-white" aria-label="Close"></button>
+                                   <button type="button" @click="cerrar" class="btn-close bg-white" aria-label="Close"></button>
                             </div>
                         </div>
                     </div>
@@ -20,25 +20,25 @@
                         <div class="row p-2">
                             <div class="col-sm">CODIGO:</div>
                             <div class="col-sm">
-                                <input v-model="inscripcion.codigo" required type="text" class="form-control form-control-sm" >
+                                <input v-model="inscripcion.codigo" required type="text" class="form-control form-control-sm" placeholder="01" >
                             </div>
                         </div>
                         <div class="row p-2">
                             <div class="col-sm">NOMBRE: </div>
                             <div class="col-sm">
-                                <input v-model="inscripcion.nombre" required pattern="[A-ZÑña-z0-9, ]{5,65}" type="text" class="form-control form-control-sm">
+                                <input v-model="inscripcion.nombre" required pattern="[A-ZÑña-z0-9, ]{5,65}" type="text" class="form-control form-control-sm" placeholder=" Juan Pedro Peña">
                             </div>
                         </div>
                         <div class="row p-2">
                             <div class="col-sm">DIRECCION: </div>
                             <div class="col-sm">
-                                <input v-model="inscripcion.direccion" required pattern="[A-ZÑña-z0-9, ]{5,65}" type="text" class="form-control form-control-sm">
+                                <input v-model="inscripcion.direccion" required pattern="[A-ZÑña-z0-9, ]{5,65}" type="text" class="form-control form-control-sm" placeholder="la union ">
                             </div>
                         </div>
                         <div class="row p-2">
                             <div class="col-sm">TEL: </div>
                             <div class="col-sm">
-                                <input v-model="inscripcion.telefono" required pattern="[0-9]{4}-[0-9]{4}" type="text" class="form-control form-control-sm">
+                                <input v-model="inscripcion.telefono" required pattern="[0-9]{4}-[0-9]{4}" type="text" class="form-control form-control-sm" placeholder="0000-0000">
                             </div>
                         </div>
                     </div>

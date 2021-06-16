@@ -19,7 +19,7 @@ Route::apiResources([
         'inscripciones'=>InscripcionesController::class,
         
 ]);
-
+Route::view('/', 'home')->name('home');
 Route::view('/', 'categorias')->name('categorias');
 
 
