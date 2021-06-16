@@ -2,7 +2,8 @@
 
 @section('content')
 <!doctype html>
-<html lang="en">
+<!doctype html>
+<html lang="esp">
   <head>
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -15,12 +16,11 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.83.1">
-    <title>FAMILIA</title>
+    <title>Docentes</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/features/">
 
-    
-
+   
     <!-- Bootstrap core CSS -->
 <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -108,16 +108,20 @@
   <h1 class="visually-hidden">Features examples</h1>
 
   <div class="container px-4 py-5" id="featured-3">
-    <h2 class="pb-2 border-bottom">FAMILIA</h2>
+    <h2 class="pb-2 border-bottom">Docentes</h2>
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
       <div class="feature col">
         <div class="feature-icon bg-primary bg-gradient">
           <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"/></svg>
         </div>
-        <h2>Featured title</h2>
-        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+        <h2> </h2>
+        <p>Es necesario fomentar en los escolares la apropiación y aplicación de
+conocimientos sobre el cultivo y el consumo de alimentos nutritivos, las
+ventajas de los sistemas agroforestales, la protección de los recursos
+naturales como el agua y el suelo, elementos fundamentales para
+sostener una buena calidad de vida.</p>
         <a href="#" class="icon-link">
-          Call to action
+          Mas Informacion
           <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
         </a>
       </div>
@@ -125,10 +129,16 @@
         <div class="feature-icon bg-primary bg-gradient">
           <svg class="bi" width="1em" height="1em"><use xlink:href="#people-circle"/></svg>
         </div>
-        <h2>Featured title</h2>
-        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+        <h2></h2>
+        <p>La presente guía ofrece a los docentes de Educación Inicial,
+los lineamientos básicos en el desarrollo de contenidos del
+currículo relacionados con el tema de Seguridad Alimentaria
+y Nutricional (SAN), identificando la información necesaria,
+proponiendo actividades didácticas y recursos básicos requeridos
+para la realización de las mismas. La guía deja al criterio del docente
+la adecuación y el enriquecimiento de la metodología sugerida.</p>
         <a href="#" class="icon-link">
-          Call to action
+          Mas Informacion
           <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
         </a>
       </div>
@@ -136,10 +146,21 @@
         <div class="feature-icon bg-primary bg-gradient">
           <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
         </div>
-        <h2>Featured title</h2>
-        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+        <h2></h2>
+        <p>L
+a Seguridad Alimentaria y Nutricional es un derecho de todos los
+seres humanos; para lograrla es necesario el esfuerzo de todas
+y todos. Se alcanza mediante el cambio de actitud, hábitos
+alimenticios, aprovechamiento, cuido y conservación de los recursos
+de nuestro entorno.
+La Seguridad Alimentaria y Nutricional (SAN) se obtiene si en nuestros
+hogares disponemos, accedemos y consumimos alimentos que
+satisfagan las necesidades de las personas que conforman nuestra
+familia, y también cuando logramos tener condiciones ambientales
+y de salud que permitan el aprovechamiento de los alimentos que
+consumimos.</p>
         <a href="#" class="icon-link">
-          Call to action
+          Mas Informacion
           <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
         </a>
       </div>
@@ -149,41 +170,41 @@
   <div class="b-example-divider"></div>
 
   <div class="container px-4 py-5" id="hanging-icons">
-    <h2 class="pb-2 border-bottom">Hanging icons</h2>
+    <h2 class="pb-2 border-bottom"> Videos </h2>
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
       <div class="col d-flex align-items-start">
         <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
-          <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
+         
         </div>
         <div>
-          <h2>Featured title</h2>
-          <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-          <a href="#" class="btn btn-primary">
-            Primary button
+          <h2>¿Qué es la nutrición?</h2>
+          <p>En el video se nos explica qué es la nutrición a diferencia de la alimentación y nos comparte tips saludables.</p>
+          <a href="https://www.youtube.com/watch?v=ETIwmxTAxB4" class="btn btn-primary">
+            Youtube
           </a>
         </div>
       </div>
       <div class="col d-flex align-items-start">
         <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
-          <svg class="bi" width="1em" height="1em"><use xlink:href="#cpu-fill"/></svg>
+          
         </div>
         <div>
-          <h2>Featured title</h2>
-          <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-          <a href="#" class="btn btn-primary">
-            Primary button
+          <h2>Alimentación saludable para niños</h2>
+          <p>Vídeo educativo para niños en el que aprenderán qué significa tener una alimentación saludable. La alimentación es el proceso que realizamos las personas para poder tener suficiente energía para todo el día. Los niños aprenderán los factores necesarios para conseguir llevar una alimentación que cuide su salud y qué papel fundamental tienen los nutrientes. También conocerán en detalles los tipos de alimentos según los nutrientes que aportan: hidratos de carbono, grasas o lípidos, proteínas, agua, vitaminas y sales minerales. Y para terminar unos consejos para conseguir el objetivo de tener una alimentación saludable.</p>
+          <a href="https://www.youtube.com/watch?v=Wr0_wULJnBE" class="btn btn-primary">
+            Youtube
           </a>
         </div>
       </div>
       <div class="col d-flex align-items-start">
         <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
-          <svg class="bi" width="1em" height="1em"><use xlink:href="#tools"/></svg>
+          
         </div>
         <div>
-          <h2>Featured title</h2>
-          <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-          <a href="#" class="btn btn-primary">
-            Primary button
+          <h2>¿Por qué es importante tener una alimentación correcta?</h2>
+          <p></p>
+          <a href="https://www.youtube.com/watch?v=9_F9UBNE9sc" class="btn btn-primary">
+             Youtube
           </a>
         </div>
       </div>
@@ -193,20 +214,23 @@
   <div class="b-example-divider"></div>
 
   <div class="container px-4 py-5" id="custom-cards">
-    <h2 class="pb-2 border-bottom">Custom cards</h2>
+    <h2 class="pb-2 border-bottom">Un dia Saludable</h2>
 
     <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
       <div class="col">
-        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
+        <div class="card card-cover h-100 overflow-hidden text-white bg-primary rounded-5 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
           <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Short title, long jacket</h2>
+            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Fruta
+Pan
+Huevo
+Leche o bebida vegetal</h2>
             <ul class="d-flex list-unstyled mt-auto">
               <li class="me-auto">
                 <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
               </li>
               <li class="d-flex align-items-center me-3">
                 <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
-                <small>Earth</small>
+                <small>Desayuno</small>
               </li>
               <li class="d-flex align-items-center">
                 <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
@@ -218,16 +242,20 @@
       </div>
 
       <div class="col">
-        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('unsplash-photo-2.jpg');">
+        <div class="card card-cover h-100 overflow-hidden text-white bg-success rounded-5 shadow-lg" style="background-image: url('unsplash-photo-2.jpg');">
           <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Much longer title that wraps to multiple lines</h2>
+            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">1/2 plato: verdura
+1/4 plato: pasta o arroz
+o patata o pan
+1/4 plato: legumbre
+Postre: fruta</h2>
             <ul class="d-flex list-unstyled mt-auto">
               <li class="me-auto">
                 <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
               </li>
               <li class="d-flex align-items-center me-3">
                 <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
-                <small>Pakistan</small>
+                <small>Almuerzo</small>
               </li>
               <li class="d-flex align-items-center">
                 <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
@@ -239,16 +267,20 @@
       </div>
 
       <div class="col">
-        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('unsplash-photo-3.jpg');">
+        <div class="card card-cover h-100 overflow-hidden text-white bg-info rounded-5 shadow-lg" style="background-image: url('unsplash-photo-3.jpg');">
           <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Another longer title belongs here</h2>
+            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">1/2 plato: verdura
+1/4 plato: pasta o arroz
+o patata o pan
+1/4 plato: pescado azul
+Postre: yogur</h2>
             <ul class="d-flex list-unstyled mt-auto">
               <li class="me-auto">
                 <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
               </li>
               <li class="d-flex align-items-center me-3">
                 <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
-                <small>California</small>
+                <small>Cena</small>
               </li>
               <li class="d-flex align-items-center">
                 <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
@@ -263,64 +295,10 @@
 
   <div class="b-example-divider"></div>
 
-  <div class="container px-4 py-5" id="icon-grid">
-    <h2 class="pb-2 border-bottom">Icon grid</h2>
+  
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
-      <div class="col d-flex align-items-start">
-        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#bootstrap"/></svg>
-        <div>
-          <h4 class="fw-bold mb-0">Featured title</h4>
-          <p>Paragraph of text beneath the heading to explain the heading.</p>
-        </div>
-      </div>
-      <div class="col d-flex align-items-start">
-        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#cpu-fill"/></svg>
-        <div>
-          <h4 class="fw-bold mb-0">Featured title</h4>
-          <p>Paragraph of text beneath the heading to explain the heading.</p>
-        </div>
-      </div>
-      <div class="col d-flex align-items-start">
-        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#calendar3"/></svg>
-        <div>
-          <h4 class="fw-bold mb-0">Featured title</h4>
-          <p>Paragraph of text beneath the heading to explain the heading.</p>
-        </div>
-      </div>
-      <div class="col d-flex align-items-start">
-        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#home"/></svg>
-        <div>
-          <h4 class="fw-bold mb-0">Featured title</h4>
-          <p>Paragraph of text beneath the heading to explain the heading.</p>
-        </div>
-      </div>
-      <div class="col d-flex align-items-start">
-        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#speedometer2"/></svg>
-        <div>
-          <h4 class="fw-bold mb-0">Featured title</h4>
-          <p>Paragraph of text beneath the heading to explain the heading.</p>
-        </div>
-      </div>
-      <div class="col d-flex align-items-start">
-        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#toggles2"/></svg>
-        <div>
-          <h4 class="fw-bold mb-0">Featured title</h4>
-          <p>Paragraph of text beneath the heading to explain the heading.</p>
-        </div>
-      </div>
-      <div class="col d-flex align-items-start">
-        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#geo-fill"/></svg>
-        <div>
-          <h4 class="fw-bold mb-0">Featured title</h4>
-          <p>Paragraph of text beneath the heading to explain the heading.</p>
-        </div>
-      </div>
-      <div class="col d-flex align-items-start">
-        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#tools"/></svg>
-        <div>
-          <h4 class="fw-bold mb-0">Featured title</h4>
-          <p>Paragraph of text beneath the heading to explain the heading.</p>
+   
+          <p>.</p>
         </div>
       </div>
     </div>
@@ -336,3 +314,4 @@
 
 
 @endsection
+
