@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\inscripciones;
+use App\inscripciones;
 use Illuminate\Http\Request;
 
 class InscripcionesController extends Controller
@@ -29,43 +29,43 @@ class InscripcionesController extends Controller
      */
     public function store(Request $request)
     {
-        $id = inscripciones::create($request->all())->id;
+        $id = Inscripciones::create($request->all())->id;
         return response()->json($id, 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\inscripciones  $cliente
+     * @param  \App\inscripciones  $inscripcion
      * @return \Illuminate\Http\Response
      */
-    public function show(inscripciones $cliente)
+    public function show(inscripciones $inscripcion)
     {
-        return $cliente;
+        return $inscripcion;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\inscripciones  $cliente
+     * @param  \App\inscripciones  $inscripcion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, inscripciones $cliente)
+    public function update(Request $request, inscripciones $inscripcion)
     {
-        $cliente->update($request->all());
+        $inscripcion->update($request->all());
         return response()->json($request->id,200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\inscripciones  $cliente
+     * @param  \App\inscripciones  $inscripcion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(inscripciones $cliente)
+    public function destroy(inscripciones $inscripcion)
     {
-        $cliente->delete();
-        return response()->json($cliente->id,200);
+        $inscripcion->delete();
+        return response()->json($inscripcion->id,200);
     }
 }

@@ -13,7 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
 
+Route::apiResources([
+        'inscripciones'=>InscripcionesController::class,
+        
+]);
 
 Route::view('/', 'categorias')->name('categorias');
 
@@ -26,9 +31,7 @@ Route::view('/familia', 'familia')->name('familia');
 
 Route::view('/chat', 'chat')->name('chat');
 
-Route::apiResources([
-    'inscripciones'=>ProductosController::class
-]);
+
 
 
 Auth::routes();
